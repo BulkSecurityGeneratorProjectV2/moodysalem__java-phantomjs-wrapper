@@ -110,6 +110,10 @@ class PhantomJSSetup {
                     }
 
                     final Path filePath = destination.resolve(entryName);
+
+                    if (!filePath.normalize().startsWith(destination.normalize())) {
+                        throw new IOException("Bad zip entry");
+                    }
                     LOG.info("Unzipping bin: [{}] to path: [{}]", entryName, filePath);
 
                     // delete what's there
